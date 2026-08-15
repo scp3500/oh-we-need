@@ -9,19 +9,11 @@
 
 ## 注入方式（按优先级）
 
-1. **改系统提示词（首选，常驻）**：把 [`core/prompt.md`](core/prompt.md) 全文粘贴进 system prompt / rules / CLAUDE.md。
-2. **安装 skill（按需加载）**：把 `adapters/pi/SKILL.md` 放进 `~/.pi/agent/skills/thinking-style/`。
-3. **DIY 命令（需要时注入）**：把 `adapters/claude-code/commands/think.md` 放进 `.claude/commands/`。会话内用 `/think` 注入；`/think build`、`/think fix` 指定任务模式。
+1. **改系统提示词（首选，常驻）**：把 [prompt.md](prompt.md) 全文粘贴进 system prompt / rules / CLAUDE.md。
+2. **安装 skill（按需加载）**：把同一段内容放进 skill 文件（如 `~/.pi/agent/skills/thinking-style/SKILL.md`）。
+3. **DIY 命令（需要时注入）**：把同一段内容做成 `/think` 命令，会话内按需注入。
 
-## 其他适配器
-
-| 文件 | 客户端 |
-|---|---|
-| `adapters/cursor/.cursorrules` | Cursor，放项目根目录 |
-| `adapters/codex/AGENTS.md` | OpenAI Codex，放项目根目录或 `~/.codex/` |
-| `adapters/generic/system-prompt.md` | 任意 API / 客户端，直接作 system prompt |
-
-适配器是同一规范的容器，内容一致，客户端支持哪种机制就用哪种。
+一段提示词适配所有客户端：模型理解规范含义后，会自己按客户端机制调整，无需为每个工具单独维护文件。
 
 ## 为什么有效
 
