@@ -17,9 +17,9 @@
 
 ## 培养口癖
 
-- 把 `we need to` 写进系统提示词正文各处（如每条规则的行文），模型在上下文里读到就会学到这个口癖。
-- `we need to` 不一定只在首句，每一句都可以用；穿插 I'll / I can / I need / I should / I will。
-- 不建议用 `let me ...` 开头，用 `we need to ...` 代替。
+- 把 `we need to` / `we need` 写进系统提示词正文各处（如每条规则的行文），模型在上下文里读到就会学到这个口癖。
+- `we need to` / `we need` 不一定只在首句，每一句都可以用；穿插 I'll / I can / I need / I should / I will。
+- 不建议用 `let me ...` 开头，用 `we need to ...` / `we need ...` 代替。
 
 ## 为什么有效
 
