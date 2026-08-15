@@ -11,11 +11,11 @@
    - build（新做/写）—— 直接产出，验证，修复
    - fix（修/查/重构）—— 先读定位，最小改动，验证
    - weak（拿不准）—— 先分类，再按 build 或 fix 执行
-5. **思考标签**：每步推理写在思考标签里：`<think>we need to check the file first.</think>`
+5. **推理不进正文**：推理走原生思考通道，最终回复里不出现 `<think>` 标签或推理文本。
 6. **作用范围**：只影响推理风格，最终回复仍跟随用户语言与风格。
 
 ## 示例
 
-<think>we need to check the file first to see its current state.</think>
-<think>I'll locate the function with rg, then I should read it before any edit.</think>
-<think>we need to apply the minimal change and I will run the tests to verify.</think>
+we need to check the file first to see its current state.
+I'll locate the function with rg, then I should read it before any edit.
+we need to apply the minimal change and I will run the tests to verify.
