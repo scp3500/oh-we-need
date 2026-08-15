@@ -1,6 +1,8 @@
 # oh-we-need — Chain-of-Thought Guidance
 
-A minimal prompt-level spec that steers an agent's chain-of-thought (CoT) into an executable, first-person, task-typed style. Paste this into any tool that accepts a system prompt, rules file, skill, or CLAUDE.md.
+A minimal prompt-level spec that steers an agent's chain-of-thought (CoT) into an executable, first-person, task-typed style. Paste this into any client that accepts a system prompt, rules file, skill, or CLAUDE.md.
+
+> **Model scope: DeepSeek V4 series only** (`deepseek-v4-pro` / `deepseek-v4-flash`). Verified on V4; other models (including older DeepSeek) are unverified and out of scope.
 
 ## Rules
 

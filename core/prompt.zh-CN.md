@@ -2,6 +2,8 @@
 
 英文规范全文见 [`prompt.md`](prompt.md)。本文件是逐条中文说明，便于理解与调整。
 
+> **模型范围：仅 DeepSeek V4 系列**（`deepseek-v4-pro` / `deepseek-v4-flash`）。V4 已验证；其他模型（含旧版 DeepSeek）未验证、不在承诺范围内。
+
 ## 规则说明
 
 1. **`we need to ...` 是核心句式**：思维链尽量直接以 `we need to` 开头给出具体推理示例，一句说清一步。例：`we need to check the file first.`

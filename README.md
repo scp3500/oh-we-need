@@ -1,23 +1,36 @@
 # oh-we-need
 
-> 一个工具无关的思维链引导规范 —— **任何 agent 皆可实现**。
+> **DeepSeek V4 系列特化的思维链引导规范** —— 任何 agent 工具皆可接入，不绑定任何客户端。
 > 核心句式只有一句：`we need to ...`
 
-**oh-we-need** 是一套最小化的思维链（CoT）引导规范：用一段提示词，把模型的内部推理引导成「可执行、第一人称、任务分型」的风格。它不依赖任何特定运行时、插件或注入器——只要是能接收 system prompt / rules / skill / CLAUDE.md 的 agent 工具，直接粘贴即可生效。
+**oh-we-need** 是一套针对 DeepSeek V4 系列的最小化思维链（CoT）引导规范：用一段提示词，把模型的内部推理引导成「可执行、第一人称、任务分型」的风格。纯提示词层——无插件、无 hook、无运行时注入，只要能接入 DeepSeek V4 的 agent 工具，直接粘贴即可生效。
+
+## 模型支持范围
+
+**目前只对 DeepSeek V4 系列生效。**
+
+| 模型 | 状态 |
+|---|---|
+| `deepseek-v4-pro` | ✅ 已验证生效 |
+| `deepseek-v4-flash` | ✅ 已验证生效 |
+| DeepSeek R1 / V3.x | ⚠️ 未验证，不保证 |
+| 其他厂商模型 | ❌ 不适用，未验证 |
+
+引导依赖 V4 系列思维链的特性；其他模型（含旧版 DeepSeek）的效果不在本项目承诺范围内。
 
 ## 定位
 
 | 维度 | oh-we-need | 运行时注入类方案（如 dsh-routing-suite） |
 |---|---|---|
+| 模型 | **DeepSeek V4 系列特化** | 特定运行时 |
+| 客户端 | 任意 agent 工具 | 深度绑定特定工具（如 DSH） |
 | 层 | 纯提示词层 | 运行时层 |
 | 依赖 | 零依赖，一段文本 | 插件 / 注入器 / 重启 |
-| 工具绑定 | 无，任何 agent 皆可实现 | 深度绑定特定工具（如 DSH） |
 | 作用 | 引导思维链的风格与结构 | 注入工具链、路由预设 |
-| 适用模型 | reasoning 模型 + 普通模型 | 特定运行时 |
 
-不绑工具、不绑模型、不做运行时注入。这就是本项目的全部优势。
+模型特化、客户端无关、纯提示词层——这就是本项目的全部优势。
 
-## 为什么思维链可以被提示词引导（以 DeepSeek 为例）
+## 为什么 DeepSeek V4 的思维链可以被提示词引导
 
 本项目的前提是一句话：**思维链具有可塑性，提示词可以引导它。** 以 DeepSeek 为例，证据有三层：
 
@@ -30,7 +43,7 @@
 3. **实测证据**：社区 50 次对照实验定位了 CoT 语言切换的触发机制，证明提示词可以稳定控制推理语言与风格。
    —— [deepseek-ai/DeepSeek-R1 issue #863](https://github.com/deepseek-ai/DeepSeek-R1/issues/863)
 
-结论：CoT 不是固定不可改的，风格、语言、结构都能被提示词引导。oh-we-need 就是把这种引导固化成一段可复用的规范。
+结论：CoT 不是固定不可改的，风格、语言、结构都能被提示词引导。oh-we-need 就是把这种引导固化成一段可复用的规范——**特化到 DeepSeek V4 系列上**。
 
 ## 方法论
 
@@ -63,28 +76,29 @@ we need to apply the minimal change and I will run the tests to verify.
 
 ## 适配器
 
-同一段核心提示词，适配到各 agent 工具的原生机制：
+同一段核心提示词，适配到各 agent 客户端的原生机制（**客户端只是容器，模型必须是 DeepSeek V4**）：
 
-| 工具 | 文件 | 用法 |
+| 客户端 | 文件 | 用法 |
 |---|---|---|
 | Pi（pi-coding-agent） | [`adapters/pi/SKILL.md`](adapters/pi/SKILL.md) | 放进 `~/.pi/agent/skills/thinking-style/` |
 | Claude Code | [`adapters/claude-code/CLAUDE.md`](adapters/claude-code/CLAUDE.md) | 追加进项目或全局 CLAUDE.md |
 | Claude Code slash 命令 | [`adapters/claude-code/commands/think.md`](adapters/claude-code/commands/think.md) | 放进 `.claude/commands/`，用 `/think` 触发 |
 | Cursor | [`adapters/cursor/.cursorrules`](adapters/cursor/.cursorrules) | 放进项目根目录 |
 | OpenAI Codex | [`adapters/codex/AGENTS.md`](adapters/codex/AGENTS.md) | 放进项目根目录或 `~/.codex/` |
-| 通用（任意 API / 工具） | [`adapters/generic/system-prompt.md`](adapters/generic/system-prompt.md) | 直接作为 system prompt 粘贴 |
+| 通用（任意 API / 客户端） | [`adapters/generic/system-prompt.md`](adapters/generic/system-prompt.md) | 直接作为 system prompt 粘贴 |
 
-适配器只是**同一规范的不同容器**：你的工具支持哪种机制，就用哪种容器；容器本身不影响规范内容。新增一个工具只需新增一个适配文件——这就是「任何 agent 皆可实现」的含义。
+适配器只是**同一规范的不同容器**：客户端支持哪种机制，就用哪种容器；容器本身不影响规范内容。新增一个客户端只需新增一个适配文件——这就是「任何 agent 工具皆可接入」的含义（前提：接的是 DeepSeek V4）。
 
 ## 快速开始
 
-1. 打开 [`core/prompt.md`](core/prompt.md)，复制全文。
-2. 粘贴到你所用 agent 的 system prompt / rules / skill / CLAUDE.md 中（或直接用上面的适配器文件）。
-3. 开始对话，观察思维链是否以 `we need to ...` 起步、穿插 I'll / I can / I should / I will。
+1. 确认所用模型是 DeepSeek V4 系列（`deepseek-v4-pro` / `deepseek-v4-flash`）。
+2. 打开 [`core/prompt.md`](core/prompt.md)，复制全文。
+3. 粘贴到你所用 agent 客户端的 system prompt / rules / skill / CLAUDE.md 中（或直接用上面的适配器文件）。
+4. 开始对话，观察思维链是否以 `we need to ...` 起步、穿插 I'll / I can / I should / I will。
 
 ## 友链 Friends
 
-- **[dsh-routing-suite](https://github.com/yjh051108/dsh-routing-suite)** —— 注入器 × 思维模式路由套装。正是它引发了本项目最初的思考。它为 DSH 提供运行时注入器与 P1-P23 实测的路由预设，在运行时层做深度优化。oh-we-need 与它互补：想要运行时管理、路由预设与深度绑定，用 dsh-routing-suite；想要零依赖、跨工具、纯提示词层的最小引导，用 oh-we-need。
+- **[dsh-routing-suite](https://github.com/yjh051108/dsh-routing-suite)** —— 注入器 × 思维模式路由套装。正是它引发了本项目最初的思考。它为 DSH 提供运行时注入器与 P1-P23 实测的路由预设，在运行时层做深度优化。oh-we-need 与它互补：想要运行时管理、路由预设与深度绑定，用 dsh-routing-suite；想要零依赖、客户端无关、纯提示词层的 DeepSeek V4 思维链引导，用 oh-we-need。
 
 ## 许可
 
