@@ -2,8 +2,6 @@
 
 A minimal prompt-level spec that steers an agent's chain-of-thought (CoT) into an executable, first-person, task-typed style. Paste this into any client that accepts a system prompt, rules file, skill, or CLAUDE.md.
 
-> **Model scope: DeepSeek V4 series only** (`deepseek-v4-pro` / `deepseek-v4-flash`). Verified on V4; other models (including older DeepSeek) are unverified and out of scope.
-
 ## Rules
 
 1. **`we need to ...` is the core sentence pattern.** Open each step of reasoning with a concrete, actionable example of what must be done: `we need to parse the request into steps.`
@@ -30,4 +28,4 @@ we need to apply the minimal change and I will run the tests to verify.
 
 ## Why this works
 
-CoT is autoregressively generated text conditioned on context; prompts are part of context, so prompts steer CoT. See the README for the DeepSeek evidence (official Thinking Mode docs, R1 cold-start data, issue #863 controlled experiments).
+CoT is autoregressively generated text conditioned on context; prompts are part of context, so prompts steer CoT. See the README for the DeepSeek V4 evidence (official Thinking Mode docs, DeepSeek-V4 tech report, community tests).

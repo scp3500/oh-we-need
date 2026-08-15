@@ -32,16 +32,16 @@
 
 ## 为什么 DeepSeek V4 的思维链可以被提示词引导
 
-本项目的前提是一句话：**思维链具有可塑性，提示词可以引导它。** 以 DeepSeek 为例，证据有三层：
+本项目的前提是一句话：**思维链具有可塑性，提示词可以引导它。** 以 DeepSeek V4 为例，证据有三层：
 
-1. **生成机制**：思维链是自回归生成的文本。DeepSeek 在输出最终答案前先生成 `reasoning_content`（CoT），每一轮、每一个 token 都以当前上下文为条件。提示词是上下文的一部分，因此提示词直接参与 CoT 的分布。
-   —— [官方文档 Thinking Mode](https://api-docs.deepseek.com/guides/thinking_mode)：CoT 与最终答案分离返回；无工具调用时，上一轮 CoT **不**拼入下一轮上下文，每轮 CoT 都由当前上下文重新生成——引导每轮生效。
+1. **生成机制（官方文档）**：V4 在输出最终答案前先生成 `reasoning_content`（CoT），每一轮、每一个 token 都以当前上下文为条件。提示词是上下文的一部分，因此提示词直接参与 CoT 的分布。
+   —— [官方文档 Thinking Mode](https://api-docs.deepseek.com/guides/thinking_mode)（覆盖 `deepseek-v4-pro` / `deepseek-v4-flash`）：CoT 与最终答案分离返回；无工具调用时，上一轮 CoT **不**拼入下一轮上下文，每轮 CoT 都由当前上下文重新生成——引导每轮生效。
 
-2. **训练侧证据**：R1 论文明确指出，冷启动数据（cold-start data）专门用于塑造 CoT 的格式——让它**可读、语言一致**。既然训练数据能塑造 CoT 风格，推理时的提示词同样能塑造它。
-   —— [DeepSeek-R1 论文](https://arxiv.org/abs/2501.12948)
+2. **模型侧（技术报告）**：DeepSeek-V4 系列经过大规模预训练（32T tokens）与 comprehensive post-training 管线，推理能力本身由训练塑造——思维链不是外部挂件，而是模型内在能力，因此可以从外部被引导。
+   —— [DeepSeek-V4 技术报告](https://arxiv.org/abs/2606.19348)（预览版：V4-Pro 1.6T/49B，V4-Flash 284B/13B，均支持百万 token 上下文）
 
-3. **实测证据**：社区 50 次对照实验定位了 CoT 语言切换的触发机制，证明提示词可以稳定控制推理语言与风格。
-   —— [deepseek-ai/DeepSeek-R1 issue #863](https://github.com/deepseek-ai/DeepSeek-R1/issues/863)
+3. **实测（社区）**：V4-Pro 上线后，社区实测（37 个推理任务，含 API 思维链调用与推理预算控制）表明思维链已从“提示工程技巧”变成可编程、可控的基础设施能力；第三方文档也演示了用 `thinking.type` 与 `reasoning_effort` 控制每轮思考。
+   —— [DeepSeek-V4-Pro 思维链调用实测](https://blog.csdn.net/weixin_34198881/article/details/92113581)、[第三方 thinking 参数文档](https://docs.infini-ai.com/docs/guide/llm/deepseek.html)
 
 结论：CoT 不是固定不可改的，风格、语言、结构都能被提示词引导。oh-we-need 就是把这种引导固化成一段可复用的规范——**特化到 DeepSeek V4 系列上**。
 

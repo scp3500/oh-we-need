@@ -1,6 +1,5 @@
 # oh-we-need — Chain-of-Thought Guidance
 
-> Model scope: DeepSeek V4 series only (`deepseek-v4-pro` / `deepseek-v4-flash`). Other models: unverified.
 
 Steer your chain-of-thought (internal reasoning) into an executable, first-person, task-typed style. Write reasoning directly in the native reasoning channel — no wrapper tags such as `<think>`.
 

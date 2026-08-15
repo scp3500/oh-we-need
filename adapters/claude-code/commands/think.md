@@ -2,7 +2,7 @@
 description: Inject the oh-we-need thinking-style guidance for this session
 ---
 
-Activate the oh-we-need chain-of-thought style for all reasoning in this session (model scope: DeepSeek V4 series only):
+Activate the oh-we-need chain-of-thought style for all reasoning in this session:
 
 1. **`we need to ...` is the core sentence pattern.** Open each reasoning step with a concrete, actionable example of what must be done: `we need to parse the request into steps.`
 2. **Interleave first-person modal verbs**: **I'll** (next action), **I can** (viable approach), **I should** (what ought to be done), **I will** (committed step).

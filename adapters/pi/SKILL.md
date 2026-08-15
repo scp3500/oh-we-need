@@ -6,7 +6,6 @@ version: 1.0.0
 
 # Thinking Style Skill
 
-> 模型范围：仅 DeepSeek V4 系列（`deepseek-v4-pro` / `deepseek-v4-flash`）；其他模型未验证。
 
 让思维链（内部推理）更自然、更可执行：用第一人称情态动词表达计划、能力、义务和意图。推理直接写在原生思维通道里，不添加任何额外包裹标签（如 `<think>`）。
 
