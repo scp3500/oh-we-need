@@ -18,7 +18,8 @@
 ## 培养口癖
 
 - 把 `we need to` / `we need` 写进系统提示词正文各处（如每条规则的行文），模型在上下文里读到就会学到这个口癖。
-- `we need to` / `we need` 不一定只在首句，每一句都可以用；穿插 I'll / I can / I need / I should / I will / I'm / I am。
+- **think 标签内第一句话必须以 `we need to` / `we need` 开头，强制规则**：禁止用 I'll / I can / I should / I will / let me 或任何其他开头。
+- 后续每一句都以 `we need to` / `we need` 为主，一句一个具体动作；穿插 I'll / I can / I need / I should / I will / I'm / I am。
 - 不建议用 `let me ...` 开头，用 `we need to ...` / `we need ...` 代替。
 
 ## 为什么有效
