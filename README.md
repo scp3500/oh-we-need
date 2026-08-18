@@ -1,36 +1,42 @@
 # oh-we-need
 
-一段提示词，把 DeepSeek V4 的思维链（CoT）引导成「可执行、第一人称、任务分型」的风格。核心句式：`we need to ...`。纯提示词层，零依赖。
+面向 DeepSeek V4 Agent 的思维链风格引导提示词。目标是让内部推理更接近「可执行、第一人称、任务分型」的风格，核心句式为 `we need to ...`。纯提示词层，零依赖。
 
-## 需要什么
+**效果边界：** 这个提示词只能大幅提高目标思维风格出现的概率，并不能保证一定生效。若某次没有按目标风格输出，可在当前会话临时注入 [prompt.md](prompt.md)，再继续任务。
 
-- **模型**：DeepSeek V4 系列（`deepseek-v4-pro` / `deepseek-v4-flash`）。R1 / V3.x 未验证，其他厂商模型不适用。
-- **客户端**：任意支持 system prompt / rules / skill / 自定义命令的 agent 工具。
+## 规范源
 
-## 注入方式（按优先级）
+[prompt.md](prompt.md) 是唯一的规范源。Agent 需要获取完整规则时，应直接读取并注入该文件；README 只说明适用范围和接入方式。
 
-1. **改系统提示词（首选，常驻）**：把 [prompt.md](prompt.md) 全文粘贴进 system prompt / rules / CLAUDE.md。
-2. **安装 skill（按需加载）**：把同一段内容放进 skill 文件（如 `~/.pi/agent/skills/thinking-style/SKILL.md`）。
-3. **DIY 命令（需要时注入）**：把同一段内容做成 `/think` 命令，会话内按需注入。
+## 适用范围
 
-**首句位置优先（约束力最强）**：粘贴时把 `First sentence rule`（prompt.md 的第一段）放在系统提示词的**最开头**。上下文首部的指令权重最高，首句强制规则放在首句位置效果最好——本项目实践：pi 全局 `AGENTS.md`（`~/.pi/agent/AGENTS.md`）的标题后第一段就是这条规则。
+- **模型**：已验证 DeepSeek V4 系列（`deepseek-v4-pro`、`deepseek-v4-flash`）。R1 / V3.x 未验证，其他厂商模型不保证适用。
+- **客户端**：任意支持 system prompt、rules、skill 或自定义命令的 Agent 工具。
 
-一段提示词适配所有客户端：模型理解规范含义后，会自己按客户端机制调整，无需为每个工具单独维护文件。
+## 接入
 
-## 培养口癖
+1. **常驻注入（首选）**：将 `prompt.md` 全文放入 system prompt、rules 或 `CLAUDE.md`。
+2. **临时注入（补救）**：当当前会话没有保持目标风格时，将 `prompt.md` 全文作为本轮指令注入，再继续任务。
+3. **按需加载**：将同一内容放入 skill 文件，或封装为 `/think` 等自定义命令。
 
-- 把 `we need to` / `we need` 写进系统提示词正文各处（如每条规则的行文），模型在上下文里读到就会学到这个口癖。
-- **think 标签内第一句话必须以 `we need to` / `we need` 开头，强制规则**：禁止用 I'll / I can / I should / I will / let me 或任何其他开头。
-- 后续每一句都以 `we need to` / `we need` 为主，一句一个具体动作；穿插 I'll / I can / I need / I should / I will / I'm / I am。
-- 不建议用 `let me ...` 开头，用 `we need to ...` / `we need ...` 代替。
+**首句位置：** `prompt.md` 的 `First sentence rule` 应位于系统提示词最开头。上下文首部的指令权重最高，这会提高首句规则的遵循概率。
 
-## 为什么有效
+## 目标行为
 
-CoT 以上下文为条件，提示词是上下文的一部分；V4 每轮 CoT 由当前上下文重新生成，引导每轮生效。依据：[官方文档](https://api-docs.deepseek.com/guides/thinking_mode) · [技术报告](https://arxiv.org/abs/2606.19348)。
+完整规则以 [prompt.md](prompt.md) 为准。接入后，Agent 的内部推理应具备以下特征：
+
+- `<think>` 内第一句话必须以 `we need to ...` / `we need ...` 开头。
+- 后续推理以 `we need to ...` / `we need ...` 为核心模式，一步一句，保持简短、口语化。
+- 先区分 build / fix / weak 等任务类型，再执行对应流程。
+- 不在最终回复泄漏 `<think>` 标签或内部推理。
+
+## 作用机制
+
+CoT 由当前上下文生成，提示词是该上下文的一部分；V4 在每轮生成时重新接收这些引导。参考：[官方 Thinking Mode 文档](https://api-docs.deepseek.com/guides/thinking_mode) · [DeepSeek-V4 技术报告](https://arxiv.org/abs/2606.19348)。
 
 ## 友链
 
-[dsh-routing-suite](https://github.com/yjh051108/dsh-routing-suite) —— 运行时注入 × 思维模式路由，与本项目互补。
+[dsh-routing-suite](https://github.com/yjh051108/dsh-routing-suite) 提供运行时注入与思维模式路由，可与本项目搭配使用。
 
 ## 许可
 
