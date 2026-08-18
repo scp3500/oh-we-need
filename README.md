@@ -26,7 +26,7 @@
 
 ## 为什么有效
 
-CoT 以上下文为条件，提示词是上下文的一部分；V4 每轮 CoT 由当前上下文重新生成，引导每轮生效。依据：[官方文档](https://api-docs.deepseek.com/guides/thinking_mode) · [技术报告](https://arxiv.org/abs/2606.19348) · [社区实测](https://blog.csdn.net/weixin_34198881/article/details/92113581)。
+CoT 以上下文为条件，提示词是上下文的一部分；V4 每轮 CoT 由当前上下文重新生成，引导每轮生效。依据：[官方文档](https://api-docs.deepseek.com/guides/thinking_mode) · [技术报告](https://arxiv.org/abs/2606.19348)。
 
 ## 友链
 
