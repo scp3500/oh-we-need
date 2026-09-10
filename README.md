@@ -1,9 +1,5 @@
 # oh-we-need
 
-> [!CAUTION]
-> **⛔ 不适用于 DeepSeek V4.1（2026-09-10）**
-> DeepSeek 已发布新版本 **V4.1**（`deepseek-v4.1-flash`）。本项目规范只针对 **V4 系列**（`deepseek-v4-pro` / `deepseek-v4-flash`）编写，**在 V4.1 上不适用——V4.1 用户请勿使用本规范。**
-
 面向 DeepSeek V4 Agent 的思维链风格引导提示词。目标是让内部推理更接近「可执行、第一人称、任务分型」的风格，核心句式为 `we need to ...`。纯提示词层，零依赖。
 
 **效果边界：** 这个提示词只能大幅提高目标思维风格出现的概率，并不能保证一定生效。若某次没有按目标风格输出，可在当前会话临时注入 [prompt.md](prompt.md)，再继续任务。
@@ -14,7 +10,7 @@
 
 ## 适用范围
 
-- **模型**：**只适用于 DeepSeek V4 系列（`deepseek-v4-pro`、`deepseek-v4-flash`）。DeepSeek V4.1（`deepseek-v4.1-flash`）不适用，V4.1 用户请勿使用本规范。** R1 / V3.x 未验证，其他厂商模型不保证适用。
+- **模型**：**只适用于 DeepSeek V4 系列（`deepseek-v4-pro`、`deepseek-v4-flash`）。** R1 / V3.x 未验证，其他厂商模型不保证适用。
 - **客户端**：任意支持 system prompt、rules、skill 或自定义命令的 Agent 工具。
 
 ## 接入
